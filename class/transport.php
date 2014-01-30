@@ -111,6 +111,10 @@ class CS_REST_CurlTransport extends CS_REST_BaseTransport {
         curl_setopt($ch, CURLOPT_USERAGENT, $call_options['userAgent']);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, CS_REST_SOCKET_TIMEOUT);
         curl_setopt($ch, CURLOPT_TIMEOUT, CS_REST_CALL_TIMEOUT);
+        if(defined('SS_OUTBOUND_PROXY')) {
+            curl_setopt($ch, CURLOPT_PROXY, SS_OUTBOUND_PROXY);
+            curl_setopt($ch, CURLOPT_PROXYPORT, SS_OUTBOUND_PROXY_PORT);
+        }
 
         $inflate_response = false;
         if($this->_curl_zlib) {
